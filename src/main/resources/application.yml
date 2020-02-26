@@ -3,6 +3,6 @@ spring:
         config:
             server:
                 git:
-                    uri: https://github.com/TheLibraryGroup/TheLibrary-configuration.git
+                    uri: https://github.com/TheLibraryGroup/config-files.git
 server:
     port: 8888

@@ -1,9 +1,13 @@
 spring:
+    application:
+        name: config-service
     cloud:
         config:
             server:
                 git:
                     uri: https://github.com/TheLibraryGroup/config-files.git
+        discovery:
+            enabled: true
     security:
         user:
             name: confUser
@@ -11,7 +15,7 @@ spring:
             roles: SYSTEM
 server:
     port: 8888
-#eureka:
-#    client:
-#        serviceUrl:
-#            defaultZone: http://discUser:discPassword@localhost:8761/eureka/
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://discUser:discPassword@localhost:8761/eureka/

@@ -6,6 +6,7 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 
 @EnableConfigServer
 @SpringBootApplication
+//@EnableEurekaClient
 public class ConfigurationServiceApplication {
 
 	public static void main( String[] args ) {

@@ -1,3 +1,7 @@
+
+server:
+    port: ${SERVER-PORT}
+
 spring:
     application:
         name: config-service
@@ -13,9 +17,8 @@ spring:
             name: confUser
             password: confPassword
             roles: SYSTEM
-server:
-    port: 8888
+
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://discUser:discPassword@localhost:8761/eureka/
+            defaultZone: ${EUREKA-CLIENT-SERVICEURL-DEFAULTZONE}

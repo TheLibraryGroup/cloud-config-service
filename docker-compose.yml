@@ -1,0 +1,84 @@
+version: '3.7'
+
+services:
+
+    thelibrary-service-configuration:
+        build:
+            context: .
+            dockerfile: configuration-service/Dockerfile-configuration
+        container_name: cont-thelibrary-configuration
+        ports:
+            - 8888:8888
+#        environment:
+#            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discUser:discPassword@thelibrary-service-discovery:8761/eureka/
+        networks:
+            - tl-network
+
+    thelibrary-service-discovery:
+        build:
+            context: .
+            dockerfile: discovery-service/Dockerfile-discovery
+        container_name: cont-thelibrary-discovery
+        command: ["/wait-for-it.sh", "thelibrary-service-configuration:8888", "--", "java", "-jar", "discovery-service-0.0.1-SNAPSHOT.jar"]
+#            ["java", "-jar", "discovery-service-0.0.1-SNAPSHOT.jar"]
+#        environment:
+#            SPRING_CLOUD_CONFIG_SERVER_GIT_URI: http://thelibrary-service-configuration:8888
+        ports:
+            - 8761:8761
+        networks:
+            - tl-network
+
+    thelibrary-service-gateway:
+        build:
+            context: .
+            dockerfile: gateway-service/Dockerfile-gateway
+        container_name: cont-thelibrary-gateway
+        command: ["/wait-for-it.sh", "thelibrary-service-configuration:8888", "--", "java", "-jar", "service-gateway-0.0.1-SNAPSHOT.jar"]
+        ports:
+            - 8081:8081
+        networks:
+            - tl-network
+
+    thelibrary-service-book:
+        build:
+            context: .
+            dockerfile: microservice-book/Dockerfile-ms-book
+        container_name: cont-service-book
+        command: ["/wait-for-it.sh", "thelibrary-service-configuration:8888", "--", "java", "-Dspring.profiles.active=docker", "-jar", "microservice-book-0.0.1-SNAPSHOT.jar"]
+        environment:
+            SPRING-CLOUD-CONFIG-SERVER-URI: http://thelibrary-service-configuration:8888
+        networks:
+            - tl-network
+
+#    ct-front:
+#        build:
+#            context: .
+#            dockerfile: build/front/Dockerfile-front
+#        container_name: cont-ct-front
+#        volumes:
+#            - 'front:/app'
+#            - '/app/node_modules'
+#        ports:
+#            - 4200:4200
+#        networks:
+#            - ct-network
+
+networks:
+    tl-network:
+        driver: bridge
+
+#volumes:
+#    thelibrary-postgres:
+#        driver: local
+#        driver_opts:
+#            type: 'none'
+#            o: 'bind'
+#            device: '/opt/ct/docker/volumes/thelibrary-postgres'
+#    thelibrary-pgadmin:
+#        driver: local
+#        driver_opts:
+#            type: 'none'
+#            o: 'bind'
+#            device: '/opt/ct/docker/volumes/thelibrary-pgadmin'
+#    front:
+

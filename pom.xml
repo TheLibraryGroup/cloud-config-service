@@ -15,10 +15,12 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
+		<java-version>11</java-version>
 		<start-class>org.thibaut.thelibrary.configurationservice.ConfigurationServiceApplication</start-class>
 		<java.version>11</java.version>
 		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
 		<spring-cloud-starter-eureka.version>1.4.7.RELEASE</spring-cloud-starter-eureka.version>
+		<maven-compiler-plugin.source-target.version>11</maven-compiler-plugin.source-target.version>
 	</properties>
 
 	<dependencies>
@@ -93,6 +95,16 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<release>${java-version}</release>
+					<source>${maven-compiler-plugin.source-target.version}</source>
+					<target>${maven-compiler-plugin.source-target.version}</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

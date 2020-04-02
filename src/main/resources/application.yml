@@ -1,6 +1,6 @@
 
 server:
-    port: ${SERVER-PORT}
+    port: ${SERVER_PORT}
 
 spring:
     application:
@@ -41,7 +41,7 @@ eureka:
     client:
         registryFetchIntervalSeconds: 5
         serviceUrl:
-            defaultZone: ${EUREKA-CLIENT-SERVICEURL-DEFAULTZONE}
+            defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
 
 management:
     endpoint:

@@ -17,8 +17,37 @@ spring:
             name: confUser
             password: confPassword
             roles: SYSTEM
+#    boot:
+#        admin:
+#            client:
+#                instance:
+#                    metadata:
+#                        tags:
+#                            environment: test
+#                enabled: true
+##                url: http://adminUser:adminPassword@localhost:8070
+#                url: http://adminUser:adminPassword@localhost:8070
+
+#info:
+#    tags:
+#        environment: test
 
 eureka:
+    instance:
+        leaseRenewalIntervalInSeconds: 10
+        health-check-url-path: /actuator/health
+        metadata-map:
+            startup: ${random.int}    #needed to trigger info and endpoint update after restart
     client:
+        registryFetchIntervalSeconds: 5
         serviceUrl:
             defaultZone: ${EUREKA-CLIENT-SERVICEURL-DEFAULTZONE}
+
+management:
+    endpoint:
+        health:
+            show-details: always
+    endpoints:
+        web:
+            exposure:
+                include: "*"

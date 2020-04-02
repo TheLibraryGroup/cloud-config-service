@@ -69,7 +69,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>${start-class}</mainClass>
-					<outputDirectory>../docker/build</outputDirectory>
 				</configuration>
 			</plugin>
 			<plugin>

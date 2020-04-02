@@ -5,7 +5,7 @@ services:
     thelibrary-service-configuration:
         build:
             context: .
-            dockerfile: configuration-service/Dockerfile-configuration
+            dockerfile: configuration-service/Dockerfile
         container_name: cont-thelibrary-configuration
         ports:
             - 8888:8888
@@ -17,7 +17,7 @@ services:
     thelibrary-service-discovery:
         build:
             context: .
-            dockerfile: discovery-service/Dockerfile-discovery
+            dockerfile: discovery-service/Dockerfile
         container_name: cont-thelibrary-discovery
         command: ["/wait-for-it.sh", "thelibrary-service-configuration:8888", "--", "java", "-jar", "discovery-service-0.0.1-SNAPSHOT.jar"]
 #            ["java", "-jar", "discovery-service-0.0.1-SNAPSHOT.jar"]

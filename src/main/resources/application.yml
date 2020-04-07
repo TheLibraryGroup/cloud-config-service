@@ -28,13 +28,10 @@ spring:
 ##                url: http://adminUser:adminPassword@localhost:8070
 #                url: http://adminUser:adminPassword@localhost:8070
 
-#info:
-#    tags:
-#        environment: test
-
 eureka:
     instance:
         leaseRenewalIntervalInSeconds: 10
+        leaseExpirationDurationInSeconds: 2
         health-check-url-path: /actuator/health
         metadata-map:
             startup: ${random.int}    #needed to trigger info and endpoint update after restart
@@ -42,6 +39,8 @@ eureka:
         registryFetchIntervalSeconds: 5
         serviceUrl:
             defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
+        healthcheck:
+            enabled: true
 
 management:
     endpoint:
